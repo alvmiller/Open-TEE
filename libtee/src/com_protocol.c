@@ -51,10 +51,8 @@ int send_fd(int sockfd, int *fd_table_to_send, int fd_count, struct iovec *aiov,
 {
 	struct msghdr msg_head = {0};
 	struct iovec iov = {0};
-	struct control_fd anc_load;
+	struct control_fd anc_load = {0};
 	char dummy = 'T';
-
-	memset(&anc_load, 0, sizeof(struct control_fd));
 
 	if (aiov == NULL) {
 		iov.iov_base = &dummy;
@@ -86,13 +84,11 @@ int recv_fd(int sockfd, int *recv_fd_table, int *fd_count, struct iovec *aiov, i
 {
 	struct msghdr msg_head = {0};
 	struct iovec iov;
-	struct control_fd anc_load;
+	struct control_fd anc_load = {0};
 	char dummy;
 	int ret = 0;
 	int count;
 	struct cmsghdr *recv_cont;
-
-	memset(&anc_load, 0, sizeof(anc_load));
 
 	if (aiov == NULL) {
 		iov.iov_base = &dummy;
