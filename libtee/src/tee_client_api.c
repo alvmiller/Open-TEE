@@ -608,10 +608,8 @@ TEEC_Result TEEC_InitializeContext(const char *name, TEEC_Context *context)
 	int com_ret;
 	TEE_Result ret = TEEC_SUCCESS;
 	struct sockaddr_un sock_addr = {0};
-	struct com_msg_ca_init_tee_conn init_msg;
+	struct com_msg_ca_init_tee_conn init_msg = {0};
 	struct com_msg_ca_init_tee_conn *recv_msg = NULL;
-
-	memset((void *)&init_msg, 0, sizeof(struct com_msg_ca_init_tee_conn));
 
 	/* We ignore the name as we are only communicating with a single instance of the emulator */
 	(void)name;
