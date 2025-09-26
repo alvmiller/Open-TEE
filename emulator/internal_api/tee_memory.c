@@ -89,8 +89,15 @@ void *TEE_GetInstanceData()
 
 void *TEE_Malloc(size_t size, uint32_t hint)
 {
-	hint = hint; // reserved for future use
-	return calloc(size, sizeof(uint8_t));
+	if (hint == TEE_MALLOC_NO_SHARE)
+		return NULL; // @TODO: TBD
+	else if (hint == TEE_MALLOC_NO_FILL
+		|| hint == (TEE_MALLOC_NO_FILL | TEE_MALLOC_FILL_ZERO))
+		return malloc(size);
+	else if (hint == TEE_MALLOC_FILL_ZERO)
+		return calloc(size, sizeof(uint8_t));
+	else
+		return NULL;
 }
 
 void *TEE_Realloc(void *buffer, uint32_t newSize) // TODO HMM the newSize should be size_t
