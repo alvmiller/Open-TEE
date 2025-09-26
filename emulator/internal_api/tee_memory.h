@@ -17,7 +17,13 @@
 #ifndef __TEE_INTERNAL_MEMORY_H__
 #define __TEE_INTERNAL_MEMORY_H__
 
+#include <stdint.h>
+
 #include "tee_data_types.h"
+
+#define TEE_MALLOC_FILL_ZERO UINT32_C(0b00000000000000000000000000000000)
+#define TEE_MALLOC_NO_FILL   UINT32_C(0b00000000000000000000000000000001)
+#define TEE_MALLOC_NO_SHARE  UINT32_C(0b00000000000000000000000000000010)
 
 TEE_Result TEE_CheckMemoryAccessRights(uint32_t accessFlags, void *buffer, size_t size);
 
